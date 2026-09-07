@@ -39,6 +39,7 @@ quietly pointing at the wrong one.
 | `.github/pull_request_template.md` | the `Decision:` trailer, offered rather than remembered |
 | `.mcp.json.example` | Nestor first, willow second. No orchestrator seat. |
 | `tests/` | yours. One test ships, and it guards the rule above. |
+| `LICENSE` | Apache-2.0, matching the engine. Replace it: your workshop is your work. |
 
 On instantiation, copy `.mcp.json.example` to `.mcp.json` and replace
 `WORKSHOP_NAME` in it with this repository's name. The live config is
