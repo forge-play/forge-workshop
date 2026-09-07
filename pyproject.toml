@@ -1,0 +1,32 @@
+# A workshop is a layout and a dependency. The engine ships the entry, the
+# checkpoint loop, the build loop, the deposit and the bundle export; this file
+# names it and nothing else. The fleet's pin shape: a floor at the release that
+# carries what the workshop calls, a ceiling at the next major.
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "workshop"
+version = "0.0.0"
+description = "A Forge workshop — where the first question gets asked"
+requires-python = ">=3.11"
+# nestor-meaning is a RUNTIME dependency here, not an optional one. The engine
+# keeps Nestor soft on purpose — its base install is dependency-free and its CI
+# asserts it. A workshop is not the engine: `forge.entry` refuses outright
+# without Nestor (the-forge-shape.md §11, "ask first or refuse"), so a workshop
+# that did not declare it would ship a README whose first command cannot run.
+dependencies = [
+    "forge-play>=0.3.0,<1.0.0",
+    "nestor-meaning>=0.19.0,<1.0.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+
+[tool.hatch.build.targets.wheel]
+# Nothing to package. A workshop is instantiated, not distributed.
+bypass-selection = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

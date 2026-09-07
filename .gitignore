@@ -1,0 +1,13 @@
+# The workshop rule, at the ignore layer: the live store never enters the
+# checkout. tests/test_workshop_rule.py is the one that actually enforces it —
+# this only stops the accident before it is staged.
+*.db
+*.sqlite
+*.sqlite3
+ledger.jsonl
+
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.egg-info/

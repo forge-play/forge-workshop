@@ -1,0 +1,58 @@
+name: Tests
+
+# A workshop's CI exists for two reasons. The first is the ordinary one: the
+# maker's tests should run. The second is structural — the PR-time deposit
+# reads check runs, so a repository with no runs deposits nothing about how a
+# build went, and "how CI went, pass and fail" is the deposit the shape doc
+# says is missing. A green-only suite would be the empty-success trap; a
+# failing job here is a fact worth keeping, not a thing to suppress.
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install the workshop and the engine
+        run: pip install -e ".[test]"
+      - name: Run tests
+        run: python -m pytest tests/ -q
+
+  # The aggregate job branch protection requires. Kept separate so a skipped
+  # or cancelled leg cannot pass as green.
+  test:
+    needs: [test-matrix]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assert every dependency actually succeeded
+        if: ${{ contains(needs.*.result, 'failure')
+                || contains(needs.*.result, 'cancelled')
+                || contains(needs.*.result, 'skipped') }}
+        run: |
+          echo "test-matrix=${{ needs.test-matrix.result }}"
+          echo "::error::a required job did not succeed — see the results above"
+          exit 1
+      - run: echo "the matrix is green"

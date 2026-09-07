@@ -1,0 +1,34 @@
+{
+  "_note": [
+    "Nestor is listed first and that ordering is a rule, not formatting.",
+    "Ask it before you search a tree and before you reach for the network.",
+    "Copy this to .mcp.json — which the fleet gitignores, because an MCP config",
+    "carries box-local paths and does not belong in a shared checkout.",
+    "Replace WORKSHOP_NAME with this repository's name in both servers; it is",
+    "the project id, and the store path is derived from it.",
+    "This config deliberately does NOT grant the orchestrator seat: no",
+    "WILLOW_HUMAN_ORCHESTRATOR, and app_id is the workshop, never 'willow'.",
+    "A workshop proposes. Sealing is a human act with a name attached."
+  ],
+  "mcpServers": {
+    "nestor": {
+      "type": "stdio",
+      "command": "nestor",
+      "args": ["serve", "--read-only"],
+      "env": {
+        "NESTOR_DB": "${HOME}/.forge/projects/WORKSHOP_NAME/nestor/keep/nestor.db",
+        "NESTOR_LEDGER": "${HOME}/.forge/projects/WORKSHOP_NAME/nestor/keep/ledger.jsonl",
+        "NESTOR_REQUIRE_SEAL_KEY": "1"
+      }
+    },
+    "willow-mcp": {
+      "type": "stdio",
+      "command": "willow-mcp",
+      "args": ["serve"],
+      "env": {
+        "WILLOW_APP_ID": "WORKSHOP_NAME",
+        "WILLOW_HANDOFF_PROJECT": "WORKSHOP_NAME"
+      }
+    }
+  }
+}
