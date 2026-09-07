@@ -36,7 +36,7 @@ quietly pointing at the wrong one.
 | `pyproject.toml` | depends on `forge-play`. The engine is a package, not a fork. |
 | `.forge/` | the bundle and the ledger head it was cut at. Absent until the first cut. |
 | `.github/workflows/tests.yml` | so a merged PR has check runs for the deposit to read |
-| `.github/pull_request_template.md` | the `Decision:` trailer, offered rather than remembered |
+| `CLAUDE.md` | the rules, in the tree. The org's copies never reach a clone. |
 | `.mcp.json.example` | Nestor first, willow second. No orchestrator seat. |
 | `tests/` | yours. One test ships, and it guards the rule above. |
 | `LICENSE` | Apache-2.0, matching the engine. Replace it: your workshop is your work. |

@@ -17,7 +17,7 @@ requires-python = ">=3.11"
 # without Nestor (the-forge-shape.md §11, "ask first or refuse"), so a workshop
 # that did not declare it would ship a README whose first command cannot run.
 dependencies = [
-    "forge-play>=0.3.0,<1.0.0",
+    "forge-play>=0.4.0,<1.0.0",
     "nestor-meaning>=0.19.0,<1.0.0",
 ]
 

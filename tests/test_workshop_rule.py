@@ -9,8 +9,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
-
 from forge import bundle
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -31,15 +29,13 @@ def test_no_database_in_the_checkout() -> None:
 
 
 def test_the_bundle_holds_together() -> None:
-    """Once a bundle has been cut, HEAD and bundle.json must agree and the
-    digest must recompute where Nestor is installed to recompute it.
+    """The bundle and the head agree, and the digest recomputes.
 
-    Skipped before the first cut. `bundle.check` reports a missing bundle as
-    a problem, which is the right answer for a workshop that has cut one and
-    lost it and the wrong one for a workshop that never has — so the
-    distinction is drawn here rather than read out of a failure.
+    Three states, so this asserts rather than skips: `uncut` before the first
+    cut, `ok` after one, `failed` for a half-pair, a bad digest, or a database
+    in the checkout. Before forge-play 0.4.0 a fresh workshop reported the
+    missing files as a failure and this test had to step around it.
     """
-    if not (REPO_ROOT / bundle.BUNDLE_DIR / bundle.HEAD_NAME).is_file():
-        pytest.skip("nothing cut yet — no .forge/HEAD in the checkout")
     c = bundle.check(REPO_ROOT)
+    assert c.state in ("uncut", "ok"), f"state={c.state}: " + "; ".join(c.problems)
     assert c.ok, "; ".join(c.problems)
