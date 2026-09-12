@@ -36,10 +36,12 @@ quietly pointing at the wrong one.
 | `pyproject.toml` | depends on `forge-play`. The engine is a package, not a fork. |
 | `.forge/` | the bundle and the ledger head it was cut at. Absent until the first cut. |
 | `.github/workflows/tests.yml` | so a merged PR has check runs for the deposit to read |
+| `.github/workflows/trailers.yml` | `reconciler verify`: every `Idea-Id` trailer must name an item in `docs/ideas.md` |
 | `CLAUDE.md` | the rules, in the tree. The org's copies never reach a clone. |
+| `CONTRIBUTING.md` | the test command and the `Idea-Id` trailer convention, in the tree for the same reason |
 | `docs/ideas.md` | the numbered idea pile. Numbers are permanent join keys; `reconciler run` reads it. |
 | `.mcp.json.example` | Nestor first, willow second. No orchestrator seat. |
-| `tests/` | yours. One test ships, and it guards the rule above. |
+| `tests/` | yours. Two ship: one guards the rule above, one asserts the trailer gate is wired. |
 | `LICENSE` | Apache-2.0, matching the engine. Replace it: your workshop is your work. |
 
 On instantiation, copy `.mcp.json.example` to `.mcp.json` and replace
