@@ -37,6 +37,7 @@ quietly pointing at the wrong one.
 | `.forge/` | the bundle and the ledger head it was cut at. Absent until the first cut. |
 | `.github/workflows/tests.yml` | so a merged PR has check runs for the deposit to read |
 | `CLAUDE.md` | the rules, in the tree. The org's copies never reach a clone. |
+| `docs/ideas.md` | the numbered idea pile. Numbers are permanent join keys; `reconciler run` reads it. |
 | `.mcp.json.example` | Nestor first, willow second. No orchestrator seat. |
 | `tests/` | yours. One test ships, and it guards the rule above. |
 | `LICENSE` | Apache-2.0, matching the engine. Replace it: your workshop is your work. |
